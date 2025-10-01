@@ -32,7 +32,7 @@ class AuthResultListener(
                 "unknown" -> "UNKNOWN"
                 else -> "INVALID"
             }
-            e.rawResponse = result.toString()
+           // e.rawResponse = result.toString()
             e.updatedAt = Instant.now()
             logger.info("Updating New Results in db.")
             chargingRepo.save(e)

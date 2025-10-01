@@ -35,7 +35,7 @@ data class ChargingRequestEntity(
 
     var updatedAt: Instant? = null,
 
-    @Lob
+    //@Lob
     var rawResponse: String? = null
 
 

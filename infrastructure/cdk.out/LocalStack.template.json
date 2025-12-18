@@ -1,0 +1,967 @@
+{
+ "Resources": {
+  "chargepointvpc2AEC1CC2": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalVpc"
+     }
+    ]
+   }
+  },
+  "chargepointvpcPublicSubnet1Subnet6A73B29C": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPublicSubnet1RouteTable348EDE1D": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPublicSubnet1RouteTableAssociation95840408": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "chargepointvpcPublicSubnet1RouteTable348EDE1D"
+    },
+    "SubnetId": {
+     "Ref": "chargepointvpcPublicSubnet1Subnet6A73B29C"
+    }
+   }
+  },
+  "chargepointvpcPublicSubnet1DefaultRouteE05CE2F7": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "chargepointvpcIGW91D3FCE6"
+    },
+    "RouteTableId": {
+     "Ref": "chargepointvpcPublicSubnet1RouteTable348EDE1D"
+    }
+   },
+   "DependsOn": [
+    "chargepointvpcVPCGW3175DCE9"
+   ]
+  },
+  "chargepointvpcPublicSubnet1EIP6D54557C": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet1"
+     }
+    ]
+   }
+  },
+  "chargepointvpcPublicSubnet1NATGateway46F79DA1": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "chargepointvpcPublicSubnet1EIP6D54557C",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "chargepointvpcPublicSubnet1Subnet6A73B29C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "chargepointvpcPublicSubnet1DefaultRouteE05CE2F7",
+    "chargepointvpcPublicSubnet1RouteTableAssociation95840408"
+   ]
+  },
+  "chargepointvpcPublicSubnet2Subnet68A84701": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPublicSubnet2RouteTableB431DD86": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPublicSubnet2RouteTableAssociation24027094": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "chargepointvpcPublicSubnet2RouteTableB431DD86"
+    },
+    "SubnetId": {
+     "Ref": "chargepointvpcPublicSubnet2Subnet68A84701"
+    }
+   }
+  },
+  "chargepointvpcPublicSubnet2DefaultRoute2063D1F6": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "chargepointvpcIGW91D3FCE6"
+    },
+    "RouteTableId": {
+     "Ref": "chargepointvpcPublicSubnet2RouteTableB431DD86"
+    }
+   },
+   "DependsOn": [
+    "chargepointvpcVPCGW3175DCE9"
+   ]
+  },
+  "chargepointvpcPublicSubnet2EIP37DDC39C": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet2"
+     }
+    ]
+   }
+  },
+  "chargepointvpcPublicSubnet2NATGatewayC663A6FE": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "chargepointvpcPublicSubnet2EIP37DDC39C",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "chargepointvpcPublicSubnet2Subnet68A84701"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "chargepointvpcPublicSubnet2DefaultRoute2063D1F6",
+    "chargepointvpcPublicSubnet2RouteTableAssociation24027094"
+   ]
+  },
+  "chargepointvpcPrivateSubnet1Subnet80F8DF06": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet1RouteTable27BB8F50": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet1RouteTableAssociationB351CF8D": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "chargepointvpcPrivateSubnet1RouteTable27BB8F50"
+    },
+    "SubnetId": {
+     "Ref": "chargepointvpcPrivateSubnet1Subnet80F8DF06"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet1DefaultRouteA1DCE390": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "chargepointvpcPublicSubnet1NATGateway46F79DA1"
+    },
+    "RouteTableId": {
+     "Ref": "chargepointvpcPrivateSubnet1RouteTable27BB8F50"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet2Subnet04A6B790": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet2RouteTable6F4758D8": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalStack/chargepoint-vpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet2RouteTableAssociationA3AE93BF": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "chargepointvpcPrivateSubnet2RouteTable6F4758D8"
+    },
+    "SubnetId": {
+     "Ref": "chargepointvpcPrivateSubnet2Subnet04A6B790"
+    }
+   }
+  },
+  "chargepointvpcPrivateSubnet2DefaultRoute233305A9": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "chargepointvpcPublicSubnet2NATGatewayC663A6FE"
+    },
+    "RouteTableId": {
+     "Ref": "chargepointvpcPrivateSubnet2RouteTable6F4758D8"
+    }
+   }
+  },
+  "chargepointvpcIGW91D3FCE6": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "LocalVpc"
+     }
+    ]
+   }
+  },
+  "chargepointvpcVPCGW3175DCE9": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "chargepointvpcIGW91D3FCE6"
+    },
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "LocalDbInstanceChargePointSubnetGroupB2DEF00D": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for LocalDbInstance-ChargePoint database",
+    "SubnetIds": [
+     {
+      "Ref": "chargepointvpcPrivateSubnet1Subnet80F8DF06"
+     },
+     {
+      "Ref": "chargepointvpcPrivateSubnet2Subnet04A6B790"
+     }
+    ]
+   }
+  },
+  "LocalDbInstanceChargePointSecurityGroup2B1C4CD3": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for LocalDbInstance-ChargePoint database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "LocalDbInstanceChargePointA8CB64F8": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "15",
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t2.micro",
+    "DBName": "charging-management",
+    "DBSubnetGroupName": {
+     "Ref": "LocalDbInstanceChargePointSubnetGroupB2DEF00D"
+    },
+    "Engine": "postgres",
+    "EngineVersion": "17.2",
+    "MasterUserPassword": "changemeinprod!",
+    "MasterUsername": "postgres",
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "LocalDbInstanceChargePointSecurityGroup2B1C4CD3",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "healthcheckdbInstancechargePoint": {
+   "Type": "AWS::Route53::HealthCheck",
+   "Properties": {
+    "HealthCheckConfig": {
+     "FailureThreshold": 3,
+     "IPAddress": {
+      "Fn::GetAtt": [
+       "LocalDbInstanceChargePointA8CB64F8",
+       "Endpoint.Address"
+      ]
+     },
+     "Port": {
+      "Fn::GetAtt": [
+       "LocalDbInstanceChargePointA8CB64F8",
+       "Endpoint.Port"
+      ]
+     },
+     "RequestInterval": 30,
+     "Type": "TCP"
+    }
+   }
+  },
+  "LocalRabbitMQBroker": {
+   "Type": "AWS::AmazonMQ::Broker",
+   "Properties": {
+    "AutoMinorVersionUpgrade": true,
+    "BrokerName": "local-rabbitmq",
+    "DeploymentMode": "SINGLE_INSTANCE",
+    "EngineType": "RabbitMQ",
+    "EngineVersion": "3.10.10",
+    "HostInstanceType": "mq.t3.micro",
+    "PubliclyAccessible": true,
+    "Users": [
+     {
+      "Password": "guest",
+      "Username": "guest"
+     }
+    ]
+   }
+  },
+  "LocalEcsClusterChargePoint1D8B3BB1": {
+   "Type": "AWS::ECS::Cluster"
+  },
+  "LocalEcsClusterChargePointDefaultServiceDiscoveryNamespace8D3FF73A": {
+   "Type": "AWS::ServiceDiscovery::PrivateDnsNamespace",
+   "Properties": {
+    "Name": "local-ecs-cluster-chargepoint",
+    "Vpc": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   }
+  },
+  "ChargingServiceTaskTaskRoleFFBE39B8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ChargingServiceTask36CAFE38": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_DATASOURCE_URL",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           "jdbc:postgresql://",
+           {
+            "Fn::GetAtt": [
+             "LocalDbInstanceChargePointA8CB64F8",
+             "Endpoint.Address"
+            ]
+           },
+           ":",
+           {
+            "Fn::GetAtt": [
+             "LocalDbInstanceChargePointA8CB64F8",
+             "Endpoint.Port"
+            ]
+           },
+           "/charging-management"
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "SPRING_DATASOURCE_USERNAME",
+        "Value": "postgres"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_PASSWORD",
+        "Value": ""
+       },
+       {
+        "Name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
+        "Value": "update"
+       },
+       {
+        "Name": "SPRING_SQL_INIT_MODE",
+        "Value": "always"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT",
+        "Value": "60000"
+       },
+       {
+        "Name": "SPRING_RABBITMQ_HOST",
+        "Value": {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "LocalRabbitMQBroker",
+            "AmqpEndpoints"
+           ]
+          }
+         ]
+        }
+       }
+      ],
+      "Essential": true,
+      "Image": "charging-service:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ChargingServiceLogGroup3A4EAF56"
+        },
+        "awslogs-stream-prefix": "charging-service:latest",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "charging-service:latestContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8082,
+        "HostPort": 8082,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ChargingServiceTaskExecutionRole24BFC74F",
+      "Arn"
+     ]
+    },
+    "Family": "LocalStackChargingServiceTask57C36C9F",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ChargingServiceTaskTaskRoleFFBE39B8",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "ChargingServiceTaskExecutionRole24BFC74F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "ChargingServiceTaskExecutionRoleDefaultPolicy0F3E584C": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ChargingServiceLogGroup3A4EAF56",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ChargingServiceTaskExecutionRoleDefaultPolicy0F3E584C",
+    "Roles": [
+     {
+      "Ref": "ChargingServiceTaskExecutionRole24BFC74F"
+     }
+    ]
+   }
+  },
+  "ChargingServiceLogGroup3A4EAF56": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/charging-service:latest",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ChargingService29895927": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "LocalEcsClusterChargePoint1D8B3BB1"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ChargingServiceSecurityGroup4B2C80CD",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "chargepointvpcPrivateSubnet1Subnet80F8DF06"
+       },
+       {
+        "Ref": "chargepointvpcPrivateSubnet2Subnet04A6B790"
+       }
+      ]
+     }
+    },
+    "ServiceName": "charging-service:latest",
+    "TaskDefinition": {
+     "Ref": "ChargingServiceTask36CAFE38"
+    }
+   },
+   "DependsOn": [
+    "ChargingServiceTaskTaskRoleFFBE39B8",
+    "LocalDbInstanceChargePointA8CB64F8",
+    "LocalDbInstanceChargePointSecurityGroup2B1C4CD3",
+    "LocalDbInstanceChargePointSubnetGroupB2DEF00D",
+    "LocalRabbitMQBroker"
+   ]
+  },
+  "ChargingServiceSecurityGroup4B2C80CD": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "LocalStack/ChargingService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   },
+   "DependsOn": [
+    "ChargingServiceTaskTaskRoleFFBE39B8",
+    "LocalDbInstanceChargePointA8CB64F8",
+    "LocalDbInstanceChargePointSecurityGroup2B1C4CD3",
+    "LocalDbInstanceChargePointSubnetGroupB2DEF00D",
+    "LocalRabbitMQBroker"
+   ]
+  },
+  "AuthServiceTaskTaskRoleE466B974": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "AuthServiceTask82E6680D": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_RABBITMQ_HOST",
+        "Value": {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "LocalRabbitMQBroker",
+            "AmqpEndpoints"
+           ]
+          }
+         ]
+        }
+       }
+      ],
+      "Essential": true,
+      "Image": "auth-service:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "AuthServiceLogGroup34125B38"
+        },
+        "awslogs-stream-prefix": "auth-service:latest",
+        "awslogs-region": {
+         "Ref": "AWS::Region"
+        }
+       }
+      },
+      "Name": "auth-service:latestContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8084,
+        "HostPort": 8084,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "AuthServiceTaskExecutionRoleA1258495",
+      "Arn"
+     ]
+    },
+    "Family": "LocalStackAuthServiceTask8334A88B",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "AuthServiceTaskTaskRoleE466B974",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AuthServiceTaskExecutionRoleA1258495": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "AuthServiceLogGroup34125B38",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3",
+    "Roles": [
+     {
+      "Ref": "AuthServiceTaskExecutionRoleA1258495"
+     }
+    ]
+   }
+  },
+  "AuthServiceLogGroup34125B38": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/auth-service:latest",
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "AuthService3C2B741A": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "LocalEcsClusterChargePoint1D8B3BB1"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "AuthServiceSecurityGroup67F2FA7D",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "chargepointvpcPrivateSubnet1Subnet80F8DF06"
+       },
+       {
+        "Ref": "chargepointvpcPrivateSubnet2Subnet04A6B790"
+       }
+      ]
+     }
+    },
+    "ServiceName": "auth-service:latest",
+    "TaskDefinition": {
+     "Ref": "AuthServiceTask82E6680D"
+    }
+   },
+   "DependsOn": [
+    "AuthServiceTaskTaskRoleE466B974",
+    "LocalRabbitMQBroker"
+   ]
+  },
+  "AuthServiceSecurityGroup67F2FA7D": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "LocalStack/AuthService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "chargepointvpc2AEC1CC2"
+    }
+   },
+   "DependsOn": [
+    "AuthServiceTaskTaskRoleE466B974",
+    "LocalRabbitMQBroker"
+   ]
+  }
+ }
+}

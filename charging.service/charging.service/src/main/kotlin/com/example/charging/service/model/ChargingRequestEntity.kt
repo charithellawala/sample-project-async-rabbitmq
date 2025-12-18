@@ -1,14 +1,8 @@
 package com.example.charging.service.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Lob
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 @Entity
 @Table(name = "charging_requests")
@@ -35,7 +29,6 @@ data class ChargingRequestEntity(
 
     var updatedAt: Instant? = null,
 
-    //@Lob
     var rawResponse: String? = null
 
 

@@ -1,6 +1,14 @@
 spring:
   application:
     name: auth.service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/charging-management
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: changemeinprod!
+    hibernate:
+      ddl-auto: update
 #  rabbitmq:
 #    host: localhost
 #    port: 5672

@@ -1,0 +1,325 @@
+{
+  "version": "39.0.0",
+  "artifacts": {
+    "LocalStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "LocalStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}"
+      },
+      "metadata": {
+        "/LocalStack/chargepoint-vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpc2AEC1CC2"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet1Subnet6A73B29C"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet1RouteTable348EDE1D"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet1RouteTableAssociation95840408"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet1DefaultRouteE05CE2F7"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet1EIP6D54557C"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet1NATGateway46F79DA1"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet2Subnet68A84701"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet2RouteTableB431DD86"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet2RouteTableAssociation24027094"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet2DefaultRoute2063D1F6"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet2EIP37DDC39C"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPublicSubnet2NATGatewayC663A6FE"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet1Subnet80F8DF06"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet1RouteTable27BB8F50"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet1RouteTableAssociationB351CF8D"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet1DefaultRouteA1DCE390"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet2Subnet04A6B790"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet2RouteTable6F4758D8"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet2RouteTableAssociationA3AE93BF"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcPrivateSubnet2DefaultRoute233305A9"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcIGW91D3FCE6"
+          }
+        ],
+        "/LocalStack/chargepoint-vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "chargepointvpcVPCGW3175DCE9"
+          }
+        ],
+        "/LocalStack/LocalDbInstance-ChargePoint/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LocalDbInstanceChargePointSubnetGroupB2DEF00D"
+          }
+        ],
+        "/LocalStack/LocalDbInstance-ChargePoint/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LocalDbInstanceChargePointSecurityGroup2B1C4CD3"
+          }
+        ],
+        "/LocalStack/LocalDbInstance-ChargePoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LocalDbInstanceChargePointA8CB64F8"
+          }
+        ],
+        "/LocalStack/health-check-dbInstance-chargePoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "healthcheckdbInstancechargePoint"
+          }
+        ],
+        "/LocalStack/LocalRabbitMQBroker": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LocalRabbitMQBroker"
+          }
+        ],
+        "/LocalStack/LocalEcsCluster-ChargePoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LocalEcsClusterChargePoint1D8B3BB1"
+          }
+        ],
+        "/LocalStack/LocalEcsCluster-ChargePoint/DefaultServiceDiscoveryNamespace/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LocalEcsClusterChargePointDefaultServiceDiscoveryNamespace8D3FF73A"
+          }
+        ],
+        "/LocalStack/ChargingServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingServiceTaskTaskRoleFFBE39B8"
+          }
+        ],
+        "/LocalStack/ChargingServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingServiceTask36CAFE38"
+          }
+        ],
+        "/LocalStack/ChargingServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingServiceTaskExecutionRole24BFC74F"
+          }
+        ],
+        "/LocalStack/ChargingServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingServiceTaskExecutionRoleDefaultPolicy0F3E584C"
+          }
+        ],
+        "/LocalStack/ChargingServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingServiceLogGroup3A4EAF56"
+          }
+        ],
+        "/LocalStack/ChargingService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:548:25)",
+              "Kernel.create (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:218:93)",
+              "KernelHost.processRequest (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:15479:36)",
+              "KernelHost.run (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:15439:22)",
+              "Immediate._onImmediate (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:15440:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/LocalStack/ChargingService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingService29895927"
+          }
+        ],
+        "/LocalStack/ChargingService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChargingServiceSecurityGroup4B2C80CD"
+          }
+        ],
+        "/LocalStack/AuthServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTaskTaskRoleE466B974"
+          }
+        ],
+        "/LocalStack/AuthServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTask82E6680D"
+          }
+        ],
+        "/LocalStack/AuthServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTaskExecutionRoleA1258495"
+          }
+        ],
+        "/LocalStack/AuthServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3"
+          }
+        ],
+        "/LocalStack/AuthServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceLogGroup34125B38"
+          }
+        ],
+        "/LocalStack/AuthService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-kernel-eB7yu6\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:548:25)",
+              "Kernel.create (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:218:93)",
+              "KernelHost.processRequest (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:15479:36)",
+              "KernelHost.run (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:15439:22)",
+              "Immediate._onImmediate (C:\\Users\\chari\\AppData\\Local\\Temp\\jsii-java-runtime11791888649840214060\\lib\\program.js:15440:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/LocalStack/AuthService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthService3C2B741A"
+          }
+        ],
+        "/LocalStack/AuthService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceSecurityGroup67F2FA7D"
+          }
+        ]
+      },
+      "displayName": "LocalStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

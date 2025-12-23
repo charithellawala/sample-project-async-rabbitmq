@@ -13,23 +13,13 @@ spring:
     username: postgres
     password: changemeinprod!
     hibernate:
-      ddl-auto: update
-
-
-#  datasource:
-#    url: jdbc:h2:mem:apidb
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password: password
-#  h2:
-#    console:
-#      enabled: true
-#      path: /h2-console
-
-#  jpa:
-#    database-platform: org.hibernate.dialect.H2Dialect
-
+      ddl-auto: validate
     show-sql: true
+  flyway:
+    baseline-on-migrate: true
+    baseline-description: "init"
+    baseline-version: 0
+    enabled: true
 
 server:
   port: 8082

@@ -12,7 +12,6 @@ Kotlin, Springboot Microservice for managing EV charging sessions with async Rab
 
 # 1. Clone repo
 git clone https://github.com/charithellawala/sample-project-async-rabbitmq.git
-cd $Project-Folder
 
 # 2. Start services (Kafka + Apps)
 docker-compose up --build

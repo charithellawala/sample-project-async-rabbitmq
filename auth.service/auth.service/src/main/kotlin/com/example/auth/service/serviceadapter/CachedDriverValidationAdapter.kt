@@ -5,6 +5,7 @@ import com.example.auth.service.reporting.ports.DriverValidationPort
 import com.example.auth.service.repository.DriverAclRepository
 import com.github.benmanes.caffeine.cache.Cache
 import io.github.resilience4j.timelimiter.TimeLimiter
+import org.slf4j.LoggerFactory
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 import java.time.Duration
@@ -19,6 +20,7 @@ class CachedDriverValidationAdapter(
     private val timeLimiter: TimeLimiter
 ) : DriverValidationPort {
 
+    private val logger = LoggerFactory.getLogger(javaClass)
     private val executor = Executors.newCachedThreadPool()
 
     override fun validate(driverToken: String): AuthorizationResult {
@@ -32,6 +34,7 @@ class CachedDriverValidationAdapter(
         stringRedisTemplate.opsForValue().get(driverToken)?.let { cached ->
             val status = AuthorizationResult.valueOf(cached.toString())
             localCache.put(driverToken, status)
+            logger.debug("Driver Status after localcach check: $status")
             return status
         }
 
@@ -46,6 +49,7 @@ class CachedDriverValidationAdapter(
             val status = timeLimiter.executeFutureSupplier {
                 CompletableFuture.supplyAsync { future.get() }
             }
+            logger.debug("Driver Status after Db check: $status")
 
             // ✅ NEGATIVE CACHE TTL HANDLING
             val ttl = if (status == AuthorizationResult.UNKNOWN)
@@ -55,10 +59,10 @@ class CachedDriverValidationAdapter(
 
             // cache results
             localCache.put(driverToken, status)
+            logger.info("Driver Validation completed..!!")
             stringRedisTemplate.opsForValue()
                 .set(driverToken, status.name, ttl)
             status
-
 
         } catch (ex: Exception) {
             // Fail-safe

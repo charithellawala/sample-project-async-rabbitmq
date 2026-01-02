@@ -24,8 +24,8 @@ class AuthorizationService(
     @RabbitListener(queues = ["auth.requests"])
     fun handle(req: com.example.auth.service.dto.AuthRequestDto) {
 
-        logger.info("Auth-service received request: $req")
-        logger.info("Checking authorization for station ${req.stationId} and driver ${req.driverToken}")
+        logger.debug("Auth-service received request: $req")
+        logger.debug("Checking authorization for station ${req.stationId} and driver ${req.driverToken}")
         val result = when {
             req.driverToken.startsWith("A") -> AuthResultDto(
                 requestId = req.requestId,
@@ -54,6 +54,6 @@ class AuthorizationService(
                 decision = result.status
             )
         )
-        logger.info("Auth-service published result: $result")
+        logger.debug("Auth-service published result: $result")
     }
 }

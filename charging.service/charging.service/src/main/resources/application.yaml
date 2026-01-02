@@ -1,25 +1,39 @@
 spring:
   application:
     name: charging.service
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
-#
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3000
+          max-attempts: 10
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/charging-management
+#    url: jdbc:postgresql://localhost:5432/charging-management
+    url: jdbc:postgresql://db:5432/charging-management
     driverClassName: org.postgresql.Driver
     username: postgres
     password: changemeinprod!
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: true
   flyway:
     baseline-on-migrate: true
     baseline-description: "init"
     baseline-version: 0
     enabled: true
+    schemas: public
+    out-of-order: true
 
 server:
   port: 8082

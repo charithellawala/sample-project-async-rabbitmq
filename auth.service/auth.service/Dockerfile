@@ -1,15 +1,17 @@
 # Stage 1: Build JAR
-FROM maven:3.8.6-eclipse-temurin-17 AS builder
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+#RUN mvn flyway:repair
+    #-Dflyway.url=jdbc:postgresql://db:5432/charging-management -Dflyway.user=postgres -Dflyway.password=changemeinprod!
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run JAR
-FROM eclipse-temurin:17-jdk-jammy
+FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 ARG JAR_NAME=auth.service-0.0.1-SNAPSHOT.jar
-#ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE=build/libs/*.jar
 COPY --from=builder /app/target/${JAR_NAME} app.jar
 COPY src/main/resources/application.yml ./config/application.yml
 ENTRYPOINT ["java", "-jar", "app.jar", "--spring.config.location=file:./config/application.yml"]

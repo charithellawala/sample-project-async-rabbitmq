@@ -1,30 +1,4 @@
-#version: '3.8'
-#services:
-#  rabbitmq:
-#    image: rabbitmq:3-management
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#    environment:
-#      RABBITMQ_DEFAULT_USER: guest
-#      RABBITMQ_DEFAULT_PASS: guest
-#  charging-service:
-#    build: ./charging.service
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - SPRING_RABBITMQ_HOST=rabbitmq
-#    depends_on:
-#      - rabbitmq
-#  auth-service:
-#    build: ./auth.service
-#    ports:
-#      - "8081:8080"
-#    environment:
-#      - SPRING_RABBITMQ_HOST=rabbitmq
-#    depends_on:
-#      - rabbitmq
-
+version: '3.8'
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -34,23 +8,11 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-#  charging.service:
-#    build: ./charging.service
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - SPRING_RABBITMQ_HOST=rabbitmq
-#    depends_on:
-#      - rabbitmq
-#  auth.service:
-#    build: ./auth.service
-#    ports:
-#      - "8081:8080"
-#    environment:
-#      - SPRING_RABBITMQ_HOST=rabbitmq
-#    depends_on:
-#      - rabbitmq
-
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   db:
     image: postgres:16.8
     ports:
@@ -58,6 +20,57 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: changemeinprod!
-      POSTGRES_PORT: 5434
+#      POSTGRES_PORT: 5434
       POSTGRES_USER: postgres
       POSTGRES_DB: charging-management
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  redis:
+    image: redis:7.2
+    container_name: auth-redis
+    ports:
+      - "6379:6379"
+    command: [ "redis-server", "--appendonly", "yes" ]
+    volumes:
+      - redis_data:/dat
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  charging-service:
+    build: ./charging.service/charging.service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  auth-service:
+    build: ./auth.service/auth.service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+volumes:
+#  postgres_data:
+  redis_data:

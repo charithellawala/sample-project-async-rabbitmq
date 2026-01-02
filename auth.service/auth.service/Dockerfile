@@ -3,8 +3,6 @@ FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-#RUN mvn flyway:repair
-    #-Dflyway.url=jdbc:postgresql://db:5432/charging-management -Dflyway.user=postgres -Dflyway.password=changemeinprod!
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run JAR

@@ -72,5 +72,4 @@ services:
       redis:
         condition: service_healthy
 volumes:
-#  postgres_data:
   redis_data:
